@@ -68,6 +68,15 @@ ERRO[0000] The moduleSpecifier "test_
      output: -
 
   scenarios: (100.00%) 1 scenario, 100 max VUs, 40s max duration (incl. graceful stop):
+  // 가상 유저 100명으로 최대 40초 동안 테스트하는 시나리오
+  // 실제 테스트시간은 10초인데 gracefulStop의 기본값 30초를 더해서 40초가 됨.
+  // gracefulStop 옵션은 가상 유저를 테스트 중에 변경하는 시나리오에서 갑자기 유저를 변경하면 데이터가 급변하는 현상이 생기게 되므로
+  // 최소 30초 동안은 기존 유저값이 유지된다는 의미
+
+  // 예제에서는 유저 수를 동적으로 조절하지 않으므로 큰 의미가 없습니다.
+  // 즉, 실제 테스트 시간인 10초동안만 실행됩니다.
+
+
            * default: 100 looping VUs for 10s (gracefulStop: 30s)
 
 
@@ -76,14 +85,22 @@ ERRO[0000] The moduleSpecifier "test_
      http_req_blocked...............: avg=537.47µs min=0s     med=1µs     max=4.48ms  p(90)=2.56ms  p(95)=2.74ms
      http_req_connecting............: avg=455.35µs min=0s     med=0s      max=2.83ms  p(90)=2.54ms  p(95)=2.7ms
      http_req_duration..............: avg=2.02s    min=2s     med=2.02s   max=2.06s   p(90)=2.05s   p(95)=2.06s
+    // http 요청 기간에 대한 결과 : 평균 2.02s, p(90)=2.05s 90%의 요청이 2.08초 이하라는 의미
+
        { expected_response:true }...: avg=2.02s    min=2s     med=2.02s   max=2.06s   p(90)=2.05s   p(95)=2.06s
      http_req_failed................: 0.00% ✓ 0         ✗ 500
+    // http 요청이 얼마나 실패했는지를 보여줌 : 0%
+
      http_req_receiving.............: avg=2.01s    min=1.99s  med=2s      max=2.02s   p(90)=2.02s   p(95)=2.02s
      http_req_sending...............: avg=7.72µs   min=2µs    med=6µs     max=101µs   p(90)=13µs    p(95)=16.04µs
      http_req_tls_handshaking.......: avg=0s       min=0s     med=0s      max=0s      p(90)=0s      p(95)=0s
      http_req_waiting...............: avg=15.11ms  min=1.84ms med=11.14ms max=39.66ms p(90)=33.49ms p(95)=36.74ms
      http_reqs......................: 500   49.253965/s
+    // http 요청이 500번 발생했다는 뜻, 100명의 유저가 10초동안 2초 간격으로 요청을 보냈으므로 500회
+
      iteration_duration.............: avg=2.02s    min=2s     med=2.02s   max=2.07s   p(90)=2.06s   p(95)=2.06s
+    // http 요청이 한 번 완료되고 다시 시작될 때까지 걸리는 시간에 대한 데이터. 평균 2.02초
+
      iterations.....................: 500   49.253965/s
      vus............................: 100   min=100     max=100
      vus_max........................: 100   min=100     max=100
@@ -92,4 +109,11 @@ ERRO[0000] The moduleSpecifier "test_
 running (10.2s), 000/100 VUs, 500 complete and 0 interrupted iterations
 default ✓ [======================================] 100 VUs  10s
 
+
+*** 위 내용을 종합하면 대략 2초 걸리는 요청 100개릂 거의 동시에 처리했다는 것을 알 수 있습니다.
+
+
+
+
 */
+
