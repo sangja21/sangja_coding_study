@@ -3,7 +3,8 @@ const fs = require("fs");
 const path = require("path");
 const env = require("dotenv").config();
 
-const webuiServerUrl = "http://127.0.0.1:7860";
+// const webuiServerUrl = "http://127.0.0.1:7860"; // localhost 서버주소
+const webuiServerUrl = "http://192.168.0.51:7860"; // 내 옆자리 윈도우PC와 연결
 const outDir = "api_out";
 const outDirT2i = path.join(outDir, "txt2img");
 const outDirI2i = path.join(outDir, "img2img");
@@ -104,11 +105,17 @@ async function callImg2ImgApi(payload) {
   }
 }
 
+async function getRandomInt() {
+  const max = 2147483647;
+  return Math.floor(Math.random() * max);
+}
+
 async function main() {
   const txt2ImgPayload = {
-    prompt: "masterpiece, (best quality:1.1), GIANT <lora:lora_model:1>", // extra networks also in prompts
-    negative_prompt: "",
-    seed: 1,
+    prompt: `Cinematic film still of neo the one, matrix movie, monocolor background, cinematic dramatic atmosphere, sharp focus, volumetric lighting, cinematic lighting, studio quality, professional color grading, very detailed face, masterpiece, best quality, highest quality:1.3, epic detailed scenery, vibrant colors, (high resolution:1.3), (sharp focus:1.3), high detailed face, intricate details, 
+    magazine cover, movie poster, wallpaper, natural lighting, perfect contrast, professional cinematic shot, 4k, perfect ambient lighting, vivid colors, intricate details, shallow depth of field, extreme cinematic photorealism:1.3,perfect cinematic atmospheric lighting, perfect realistic cinematic reflections, photographed on a Canon EOS R5, 50mm lens, F/2.8, HDR, 8k resolution, cinematic lens flares, extreme photorealism:1.3, dslr, <lora:koreanDollLikeness:1>`, // extra networks also in prompts
+    negative_prompt: `anime, cgi, painting, cartoon, painting, illustration, (worst quality, low quality, normal quality:1.8), (grayscale:1.4), midget, bad proportions, big head`,
+    seed: 111111,
     steps: 20,
     width: 512,
     height: 512,
