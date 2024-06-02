@@ -1,2 +1,4 @@
 # dotenv environment variable files
 .env
+
+/api_out/

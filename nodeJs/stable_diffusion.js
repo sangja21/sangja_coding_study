@@ -116,7 +116,7 @@ async function main() {
     magazine cover, movie poster, wallpaper, natural lighting, perfect contrast, professional cinematic shot, 4k, perfect ambient lighting, vivid colors, intricate details, shallow depth of field, extreme cinematic photorealism:1.3,perfect cinematic atmospheric lighting, perfect realistic cinematic reflections, photographed on a Canon EOS R5, 50mm lens, F/2.8, HDR, 8k resolution, cinematic lens flares, extreme photorealism:1.3, dslr, <lora:koreanDollLikeness:1>`, // extra networks also in prompts
     negative_prompt: `anime, cgi, painting, cartoon, painting, illustration, (worst quality, low quality, normal quality:1.8), (grayscale:1.4), midget, bad proportions, big head`,
     seed: 111111,
-    steps: 20,
+    steps: 30,
     width: 512,
     height: 512,
     cfg_scale: 7,
